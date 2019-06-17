@@ -169,9 +169,6 @@ function D3Graph(pd3EdgeSet){
 	};
 
     var mouseover = function () {
-
-      
-
       d3.select(this).select("circle").transition()
         .duration(750)
         .attr("r", 16);
@@ -237,7 +234,6 @@ function D3Graph(pd3EdgeSet){
       //console.log(i);
       i.type = "#ff0000";
     }
-    console.log("Hurley");
 
     for (var currentNode in Object.keys(nodes)){
         //console.log(currentNode);
@@ -249,7 +245,6 @@ function D3Graph(pd3EdgeSet){
       
       //console.log(currentnode);  
     }
-
         
     node.append("circle")
         .attr("r", 8)
