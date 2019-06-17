@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<meta charset="utf-8">
+
+<html>
+	<head>
+		<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">-->
+		<!--<meta name="format-detection" content="telephone=no">-->
+		<!--<meta name="msapplication-tap-highlight" content="no"> -->
+		<!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"> -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+
+	<body>
+		<!-- <div id="viz"></div> -->
+		<svg id="game">
+			<line class="link" x1="50" y1="50" x2="50" y2="150"></line>
+			<g class="node" transform="translate(50, 50)">
+				<circle r="50" style="fill: rgb(255, 0, 0);"></circle>
+			</g>
+			<!-- 950 - 50 -->
+			<g class="node" transform="translate(900, 50)">
+				<circle r="50" style="fill: rgb(255, 0, 0);"></circle>
+			</g>
+			<g class="node" transform="translate(475, 50)">
+				<circle r="50" style="fill: rgb(255, 0, 0);"></circle>
+			</g>
+		</svg>
+
+		<script src="./d3.js"></script>
+		<script src="./jquery-2.1.4.min.js"></script>
+		<script src="./circle-graph-attach.js"></script>
+		<script src="./main.js"></script>
+
+		<!-- <script src="./TestMessage.js"></script>
+
+		<script src="./d3.js"></script>
+		<script src="./jquery-2.1.4.min.js"></script>
+
+		<script src="./graph.js"></script>
+		<script src="./UndirectedGraph.js"></script>
+		<script src="./D3Graph.js"></script>
+		<script src="./DataTransmute.js"></script>
+		<script type="text/javascript" src="./d3/d3.js"></script>
+		<script type="text/javascript" src="./Jquery/jquery-2.1.4.min.js"></script>
+
+		<script src="./bodyscript.js"></script>
+		<script src="./test.js"></script> -->
+
+	</body>
+</html>

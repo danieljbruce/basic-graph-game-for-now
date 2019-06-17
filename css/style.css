@@ -1,0 +1,24 @@
+.link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+}
+
+.node circle {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+text {
+    font: 10px sans-serif;
+    pointer-events: none;
+}
+
+#game {
+    width: 950px;
+    height: 950px;
+    /*border-width: 1px;*/
+    /*border-style: solid;*/
+    margin-top: 20px;
+}
