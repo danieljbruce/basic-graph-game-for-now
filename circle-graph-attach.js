@@ -2,29 +2,20 @@
 // links:
 
 var attachCircleGraph = function(selector, vertexCount, edges, radius, center){
-    this.calculateX = function(vertexNumber, vertexCount, radius, center){
-        var angle = vertexNumber / vertexCount * 2 * Math.PI;
-        var amountToAdd = Math.cos(angle);
+    var radiusEnlarged = radius * 1.5; // This variable stores the size the circle grows to when the circle is clicked.
+    
+    // This function calculates the starting x co-ordinate of the node
+    this.calculateX = function(vertexNumber, vertexCount, radius, center){ 
+        var angle = vertexNumber / vertexCount * 2 * Math.PI; // This calculates the angle that we want from the centre of the image
+        var amountToAdd = Math.cos(angle); // This stores the amount of distance the node should be placed from the centre.
         return center + amountToAdd * (center - radius);
     }
-
+    // This function calculates the starting y co-ordinate of the node
     this.calculateY = function(vertexNumber, vertexCount, radius, center){
-        var angle = vertexNumber / vertexCount * 2 * Math.PI;
+        var angle = vertexNumber / vertexCount * 2 * Math.PI; // This calculates the angle that we want from the centre of the image
         var amountToAdd = Math.sin(angle);
         return center + amountToAdd * (center - radius);
     }
-    // this.getEdgeHtml = function(x1, y1, x2, y2){
-    //     return '<line class="link" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'"></line>'
-    // }
-    // this.getVertexHtml = function(x1, y1, radius){
-    //     var html = '<g class="node" transform="translate('+x1+', ' +y1+')">';
-    //         html += '<circle r="'+radius+'" style="fill: rgb(255, 0, 0);"></circle>';
-    //         html += '</g>';
-    //     return html;
-    // }
-    // Fix position of vertices and edges
-    // Add event listener to vertices - changes color and grow/shrink animation
-    //
     for (var i = 0; i < edges.length; i++){
         var source = edges[i][0];
         var target = edges[i][1];
@@ -33,7 +24,7 @@ var attachCircleGraph = function(selector, vertexCount, edges, radius, center){
         var xTarget = this.calculateX(target, vertexCount, radius, center);
         var yTarget = this.calculateY(target, vertexCount, radius, center);
         // d3.select(selector).append(this.getEdgeHtml(xSource, ySource, xTarget, yTarget));
-        d3.select("#game").append("line").attr("class","link")
+        d3.select("#game").append("line").attr("index", i).attr("class","link")
             .attr("x1", xSource).attr("y1", ySource).attr("x2",xTarget)
             .attr("y2", yTarget).attr("source", source).attr("target", target)
     }
@@ -43,20 +34,30 @@ var attachCircleGraph = function(selector, vertexCount, edges, radius, center){
         // d3.select(selector).append(this.getVertexHtml(x, y, radius));
         d3.select("#game").append("circle").attr("r", radius)
             .attr("transform", "translate("+x+", "+y+")")
-            .attr("value", i).style('fill', 'rgb(255, 0, 0)').attr('value', 0);
+            .attr("index", i).style('fill', 'rgb(255, 0, 0)').attr('color', 0);
     }
     $("#game circle").click(function(event){
-        var element = event.target;
-        var value = (parseInt(d3.select(element).attr('value')) + 1) % 3;
-        d3.select(element).attr('value', value);
-        if (value === 0){
-            d3.select(element).style('fill', 'rgb(255, 0, 0)');
-        } else if (value === 1) {
-            d3.select(element).style('fill', 'rgb(0, 255, 0)');
+        var element = event.target; // stores a variable 'element' that equals the object in the d3 selection
+        var colorValue = (parseInt(d3.select(element).attr('color')) + 1) % 3; // Stores a variable 'value' representing the new colour
+        d3.select(element).attr('color', colorValue); // Sets the 'value' attribute of the element object to the new value
+        // This 'if' block changes the colour of the nodes by changing the fill attribute.
+        if (colorValue === 0){ 
+            d3.select(element).style('fill', 'rgb(255, 0, 0)'); // Fills the node clicked with red colour
+        } else if (colorValue === 1) {
+            d3.select(element).style('fill', 'rgb(0, 255, 0)'); // Fills the node clicked with blue colour
         } else {
-            d3.select(element).style('fill', 'rgb(0, 0, 255)');
+            d3.select(element).style('fill', 'rgb(0, 0, 255)'); // Fills the node clicked with green colour
         }
-        d3.select(element).transition().duration(200).attr("r", 70).transition().duration(200).attr("r", 50);
+        var indexValue = parseInt(d3.select(element).attr('index'));
+        for (var i = 0; i < edges.length; i++){
+            var source = edges[i][0];
+            var target = edges[i][1];
+            if (indexValue === source || indexValue === target){
+                console.log(i);
+                d3.select(d3.selectAll("#game line")[0][i]).style("stroke", "red");
+            }
+        }
+        d3.select(element).transition().duration(200).attr("r", radiusEnlarged).transition().duration(200).attr("r", radius);
         // select lines of interest and consider changing their color
     })
 }

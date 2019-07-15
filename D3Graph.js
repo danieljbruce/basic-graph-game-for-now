@@ -127,18 +127,11 @@ function D3Graph(pd3EdgeSet){
 
     };
     
-
     updateNodes = function(){
         var selection = node.select("circle").data();
     };
-
     lclNodeColors = new NodeColors();
-
     lclNodeColors.setDelegate("Circle Coloring", function(pNodeId, pColor){colorCircle(pNodeId, pColor);});
-    
-
-    
-  
 
 	links.forEach(function(link) {
 
